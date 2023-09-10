@@ -1,44 +1,39 @@
+
 from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 import datetime
-from django.http import JsonResponse
-from .models import ApiInfo
-from django.http import HttpResponse
+
 
 # Create your views here.
-
-def home(request):
-    return HttpResponse("happy  internship")
-
-
-
 def get_info(request):
-    slack_name = request.GET.get('slack_name', '')
-    track = request.GET.get('track', '')
+    slack_name = request.GET.get("slack_name")
+    track = request.GET.get("track")
 
-    # Get current UTC time with validation of +/-2 minutes
-    current_time = datetime.datetime.utcnow()
-    current_time_with_offset = current_time + datetime.timedelta(minutes=2)
+    # Validate that both query parameters are provided
+    if not slack_name or not track:
+        return JsonResponse(
+            {"error": "Both Slack_name and track are required"}, status=400
+        )
 
-    # Define GitHub URLs
-    github_file_url = "https://github.com/Abubakarauta/hngx_intern/blob/main/tasks/views.py"
+    # get the current day of the week
+    current_day = datetime.datetime.utcnow().strftime("%A")
+
+    # get the current UTC time with a +/- 2 munite window
+    current_utc_time = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%H:%SZ")
+
+    # construct a gitghub URLS based on repo and file names
     github_repo_url = "https://github.com/Abubakarauta/hngx_intern"
+    github_file_url = "https://github.com/Abubakarauta/hngx_intern/blob/main/tasks/views.py"
 
-    # Create a new instance of ApiInfo
-    api_info = ApiInfo(slack_name=slack_name, track=track)
-    api_info.save()
+    # create a JSON response
 
- # Format UTC time as "2023-09-10T18:11:18Z"
-    formatted_utc_time = current_time_with_offset.strftime('%Y-%m-%dT%H:%M:%SZ')
-
-    # Create the JSON response
-    response = {
+    response_data = {
         "slack_name": slack_name,
-        "current_day": current_time.strftime('%A'),
-        "utc_time": formatted_utc_time,
-        "track": track,
-        "github_file_url": github_file_url,
-        "github_repo_url": github_repo_url,
-        "status_code": 200
+        "curent_day": current_day,
+        "utc_time": current_utc_time,
+        "track":track,
+        "github_file_url": github_repo_url,
+        "github_file_url":github_file_url,
+        "status_code":200
     }
-
-    return JsonResponse(response)
+    return JsonResponse(response_data)
