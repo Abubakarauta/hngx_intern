@@ -20,8 +20,8 @@ def get_info(request):
     current_time_with_offset = current_time + datetime.timedelta(minutes=2)
 
     # Define GitHub URLs
-    github_file_url = "https://github.com/username/repo/blob/main/file_name.ext"
-    github_repo_url = "https://github.com/username/repo"
+    github_file_url = "https://github.com/Abubakarauta/hngx_intern/blob/main/tasks/views.py"
+    github_repo_url = "https://github.com/Abubakarauta/hngx_intern"
 
     # Create a new instance of ApiInfo
     api_info = ApiInfo(slack_name=slack_name, track=track)
