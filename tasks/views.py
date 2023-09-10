@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 import datetime
 
-
 # Create your views here.
 def get_info(request):
     slack_name = request.GET.get("slack_name")
@@ -23,13 +22,12 @@ def get_info(request):
 
     # construct a gitghub URLS based on repo and file names
     github_repo_url = "https://github.com/Abubakarauta/hngx_intern"
-    github_file_url = "https://github.com/Abubakarauta/hngx_intern/blob/main/tasks/views.py"
-
+    github_file_url = f"{github_repo_url}/blob/main/tasks/views.py"
     # create a JSON response
 
     response_data = {
         "slack_name": slack_name,
-        "curent_day": current_day,
+        "current_day": current_day,
         "utc_time": current_utc_time,
         "track":track,
         "github_file_url": github_repo_url,
