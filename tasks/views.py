@@ -7,7 +7,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def home(request):
-    return HttpResponse("Happy Internship")
+    return HttpResponse("happy  internship")
 
 
 
@@ -27,11 +27,14 @@ def get_info(request):
     api_info = ApiInfo(slack_name=slack_name, track=track)
     api_info.save()
 
+ # Format UTC time as "2023-09-10T18:11:18Z"
+    formatted_utc_time = current_time_with_offset.strftime('%Y-%m-%dT%H:%M:%SZ')
+
     # Create the JSON response
     response = {
         "slack_name": slack_name,
         "current_day": current_time.strftime('%A'),
-        "utc_time": current_time_with_offset.strftime('%Y-%m-%dT%H:%M:%SZ'),
+        "utc_time": formatted_utc_time,
         "track": track,
         "github_file_url": github_file_url,
         "github_repo_url": github_repo_url,
