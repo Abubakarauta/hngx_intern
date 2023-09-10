@@ -21,7 +21,7 @@ from tasks import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tasks.urls')),  # Include your app's URLs here
-   # path('', views.home, name='home'),  # Define root URL pattern pointing to the API view
+   #path('', views.home, name='home'),  # Define root URL pattern pointing to the API view
 
 
 ]
