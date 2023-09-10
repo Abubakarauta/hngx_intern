@@ -18,7 +18,7 @@ def get_info(request):
     current_day = datetime.datetime.utcnow().strftime("%A")
 
     # get the current UTC time with a +/- 2 munite window
-    current_utc_time = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%H:%SZ")
+    current_utc_time = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 
     # construct a gitghub URLS based on repo and file names
     github_repo_url = "https://github.com/Abubakarauta/hngx_intern"
@@ -28,10 +28,10 @@ def get_info(request):
     response_data = {
         "slack_name": slack_name,
         "current_day": current_day,
-        "current_utc_time": current_utc_time,
+        "utc_time":  current_utc_time,
         "track":track,
-        "github_repo_url": github_repo_url,
         "github_file_url":github_file_url,
+        "github_repo_url": github_repo_url,
         "status_code":200
     }
     return JsonResponse(response_data)
